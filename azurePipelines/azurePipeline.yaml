@@ -31,9 +31,7 @@ steps:
     publishLocation: 'Container'
   displayName: 'Publish Test Results as Artifacts'
 
-- task: PublishTestResults@2
+- task: PublishTestResults@1
   inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: 'playwright-report/junit-report.xml'
-    searchFolder: '.'
-  displayName: 'Publish Test Results'
+    testRunner: 'JUnit'
+    testResultsFiles: '**/junit-report*.xml'
