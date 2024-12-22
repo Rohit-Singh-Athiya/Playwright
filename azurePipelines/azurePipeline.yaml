@@ -16,7 +16,7 @@ steps:
 - script: npx playwright install --with-deps
   displayName: 'Install Playwright and Dependencies'
 
-- script: npx playwright test --reporter=html --output=playwright-report
+- script: npx playwright test --reporter=html,junit --output=playwright-report
   displayName: "Run Playwright Tests"
   env:
     CI: true
