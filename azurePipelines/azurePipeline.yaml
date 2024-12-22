@@ -27,11 +27,10 @@ steps:
     ArtifactName: 'TestResults'
     publishLocation: 'Container'
   displayName: 'Publish Test Results as Artifacts'
-
+  
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
     testResultsFiles: 'playwright-report/junit-report.xml'
-    searchFolder: 'playwright-report'
-    mergeTestResults: true
-  displayName: 'Publish Junit Results'
+    searchFolder: playwright-report
+  displayName: 'Publish Test Resultes'  
