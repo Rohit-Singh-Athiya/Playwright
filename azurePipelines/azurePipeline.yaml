@@ -21,8 +21,8 @@ steps:
   env:
     CI: true
 
-- script: dir playwright-report
-  displayName: 'List Playwright Report Directory'
+- script: dir playwright-report /s
+  displayName: 'Debug Playwright Report Directory'
 
 - task: PublishBuildArtifacts@1
   inputs:
