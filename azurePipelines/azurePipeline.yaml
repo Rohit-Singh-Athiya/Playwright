@@ -1,0 +1,36 @@
+trigger:
+- main
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+  displayName: 'Install Node.js'
+
+- script: npm ci
+  displayName: 'Install Dependencies with npm ci'
+
+- script: npx playwright install --with-deps
+  displayName: 'Install Playwright and Dependencies'
+
+- script: npx playwright test --reporter=html --output=playwright-report
+  displayName: "Run Playwright Tests"
+  env:
+    CI: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: 'playwright-report'
+    ArtifactName: 'TestResults'
+    publishLocation: 'Container'
+  displayName: 'Publish Test Results as Artifacts'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: 'playwright-report/junit-report.xml' 
+    mergeTestResults: true
+  displayName: 'Publish Junit Results'
