@@ -34,4 +34,4 @@ steps:
 - task: PublishTestResults@1
   inputs:
     testRunner: 'JUnit'
-    testResultsFiles: '**/junit-report*.xml'
+    testResultsFiles: 'playwright-report/junit-report.xml'
