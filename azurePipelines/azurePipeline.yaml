@@ -1,5 +1,5 @@
 trigger:
-- main
+  - main
 
 pool:
   vmImage: windows-latest
@@ -16,10 +16,13 @@ steps:
 - script: npx playwright install --with-deps
   displayName: 'Install Playwright and Dependencies'
 
-- script: npx playwright test --reporter=html,junit --output=playwright-report
+- script: npx playwright test --reporter=html,junit --output=playwright-report --reporter=junit:playwright-report/junit-report.xml
   displayName: "Run Playwright Tests"
   env:
     CI: true
+
+- script: dir playwright-report
+  displayName: 'List Playwright Report Directory'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -27,10 +30,10 @@ steps:
     ArtifactName: 'TestResults'
     publishLocation: 'Container'
   displayName: 'Publish Test Results as Artifacts'
-  
+
 - task: PublishTestResults@2
   inputs:
     testResultsFormat: 'JUnit'
-    testResultsFiles: 'junit-report.xml'
+    testResultsFiles: 'playwright-report/junit-report.xml'
     searchFolder: playwright-report
-  displayName: 'Publish Test Resultes'  
+  displayName: 'Publish Test Results'
